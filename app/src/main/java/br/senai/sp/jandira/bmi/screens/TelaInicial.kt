@@ -21,6 +21,7 @@ import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -33,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -41,15 +43,26 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.senai.sp.jandira.bmi.R
 import java.util.jar.Attributes.Name
 
 @Composable
-fun TelaInicial(modifier: Modifier = Modifier) {
+fun TelaInicial(navController: NavController?) {
 
     var nomeState = remember {
         mutableStateOf(value = "")
     }
+
+    var isErrorState = remember {
+        mutableStateOf(false)
+    }
+
+    var errorMessageState = remember {
+        mutableStateOf("")
+    }
+
+    var context = LocalContext.current
 
     Box(
         modifier = Modifier
@@ -91,6 +104,9 @@ fun TelaInicial(modifier: Modifier = Modifier) {
 
                     topStart = 30.dp,
                     topEnd = 30.dp
+                ),
+                colors = CardDefaults.cardColors(
+                    containerColor = Color.White
                 )
 
             ){
@@ -128,11 +144,25 @@ fun TelaInicial(modifier: Modifier = Modifier) {
                             keyboardOptions = KeyboardOptions(
                                 keyboardType = KeyboardType.Text,
                                 capitalization = KeyboardCapitalization.Sentences
-                            )
+                            ),
+                            isError = isErrorState.value,
+                            supportingText = {
+                                Text(
+                                    text = errorMessageState.value,
+                                    color = Color.Red
+                                )
+                            }
                         )
                     }
                     Button(
-                        onClick = {},
+                        onClick = {
+                            if (nomeState.value.length < 3){
+                                isErrorState.value = true
+                                errorMessageState.value = context.getString(R.string.support_name)
+                            }else{
+                                navController?.navigate("user_data")
+                            }
+                        },
                         modifier = Modifier
                     ){
                         Text(
@@ -153,5 +183,5 @@ fun TelaInicial(modifier: Modifier = Modifier) {
 @Preview(showSystemUi = true)
 @Composable
 private fun TelaInicialPreview() {
-    TelaInicial()
+    TelaInicial( null)
 }

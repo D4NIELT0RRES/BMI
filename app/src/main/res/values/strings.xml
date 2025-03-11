@@ -11,4 +11,5 @@
     <string name="weight">Weight</string>
     <string name="height">Height</string>
     <string name="calculate">Calculate</string>
+    <string name="support_name">The name is required!</string>
 </resources>
