@@ -302,9 +302,9 @@ fun UserDataScreen(modifier: Modifier = Modifier){
         }
     }
 }
-
 @Preview(showSystemUi = true)
 @Composable
-private fun UserdataScreenPreview() {
+private fun UserDataScreenPreview(){
     UserDataScreen()
 }
+

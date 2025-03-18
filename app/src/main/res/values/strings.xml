@@ -1,15 +1,23 @@
 <resources>
-    <string name="app_name">BMI</string>
-    <string name="logo_description">Logo description</string>
-    <string name="welcome">Welcome</string>
-    <string name="your_name">What\'s your name</string>
-    <string name="next">Name</string>
-    <string name="hi">Hi !</string>
-    <string name="male">Male</string>
-    <string name="female">Female</string>
-    <string name="age">Age</string>
-    <string name="weight">Weight</string>
-    <string name="height">Height</string>
-    <string name="calculate">Calculate</string>
-    <string name="support_name">The name is required!</string>
+    <string name="app_name">BMI                                     </string>
+    <string name="logo_description">Logo description                </string>
+    <string name="welcome">Welcome                                  </string>
+    <string name="your_name">What\'s your name                      </string>
+    <string name="next">Name                                        </string>
+    <string name="hi">Hi !                                          </string>
+    <string name="male">Male                                        </string>
+    <string name="female">Female                                    </string>
+    <string name="age">Age                                          </string>
+    <string name="weight">Weight                                    </string>
+    <string name="height">Height                                    </string>
+    <string name="calculate">Calculate                              </string>
+    <string name="support_name">The name is required!               </string>
+    <string name="your_BMI_result">Your BMI Result                  </string>
+    <string name="result_age">50                                    </string>
+    <string name="result_weight">97 Kg                              </string>
+    <string name="result_high">178 cm                               </string>
+    <string name="You_have_class_I_obesity">You have Class | Obesity</string>
+    <string name="number_circle">30,6                               </string>
+    <string name="High">High                                        </string>
+    <string name="New_Calc">New Calc</string>
 </resources>
