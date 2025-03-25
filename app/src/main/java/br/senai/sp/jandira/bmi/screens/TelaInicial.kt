@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.bmi.screens
 
+import android.content.Context
 import androidx.compose.animation.core.EaseInQuad
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -63,6 +64,8 @@ fun TelaInicial(navController: NavController?) {
     }
 
     var context = LocalContext.current
+
+    //
 
     Box(
         modifier = Modifier
@@ -160,6 +163,16 @@ fun TelaInicial(navController: NavController?) {
                                 isErrorState.value = true
                                 errorMessageState.value = context.getString(R.string.support_name)
                             }else{
+                                //Criar o acesso a um arquivo SharedPreferences
+                                val sharedNome = context
+                                    .getSharedPreferences("usuario", Context.MODE_PRIVATE)
+
+                                //Criar uma variavel para editar o arquivo que acabamos de criar
+                                val editor = sharedNome.edit()
+                                //Adiciona uma nova linha no arquivo |
+                                editor.putString("user_name", nomeState.value.trim())
+                                editor.apply()
+
                                 navController?.navigate("user_data")
                             }
                         },

@@ -1,5 +1,7 @@
 package br.senai.sp.jandira.bmi.screens
 
+import android.content.Context
+import android.location.Location
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +29,7 @@ import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,10 +37,24 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.bmi.R
+import br.senai.sp.jandira.bmi.model.BmiStatus
+import java.util.Locale
 
 @Composable
 fun BMIResultScreen(navController: NavController?) {
 
+    var context = LocalContext.current
+
+    val sharedUserFile = context.getSharedPreferences("usuario", Context.MODE_PRIVATE)
+
+    val age    = sharedUserFile.getInt("user_age"   , 0)
+    var height: Double = sharedUserFile.getInt("user_height", 0).toDouble()
+    val weight = sharedUserFile.getInt("user_weight", 0)
+
+
+    height /= 100.0
+
+    BmiStatus.OBESITY1
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -145,7 +162,7 @@ fun BMIResultScreen(navController: NavController?) {
                                     fontSize = 20.sp
                                 )
                                 Text(
-                                    text = stringResource(R.string.result_age),
+                                    text = age.toString(),
                                     color = Color.Black,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
@@ -164,7 +181,7 @@ fun BMIResultScreen(navController: NavController?) {
                                     fontSize = 20.sp
                                 )
                                 Text(
-                                    text = stringResource(R.string.result_weight),
+                                    text = "$weight Kg",
                                     color = Color.Black,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
@@ -183,7 +200,7 @@ fun BMIResultScreen(navController: NavController?) {
                                     fontSize = 20.sp
                                 )
                                 Text(
-                                    text = stringResource(R.string.result_high),
+                                    text = String.format(Locale.getDefault(),"%.2f", height),
                                     color = Color.Black,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
@@ -202,6 +219,7 @@ fun BMIResultScreen(navController: NavController?) {
                     HorizontalDivider()
                     Button(
                         onClick = {
+
                             navController?.navigate("user_data")
                         },
                         modifier = Modifier

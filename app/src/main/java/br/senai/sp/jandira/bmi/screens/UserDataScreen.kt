@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.bmi.screens
 
+import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -41,6 +42,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -70,6 +72,14 @@ fun UserDataScreen(navController: NavController?){
         mutableStateOf("")
     }
 
+    //Abrir o arquivo usuario.xml para recuperar o nome que o usuario digitou
+    var context = LocalContext.current
+    var sharedUserFile = context
+        .getSharedPreferences("usuario", Context.MODE_PRIVATE)
+
+    //Abrindo o arquivo chamado usuario e se nao for encontrado nenhum nome entao NAME NOT FOUND
+    val userName = sharedUserFile.getString("user_name", "Name not found!")
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -92,7 +102,7 @@ fun UserDataScreen(navController: NavController?){
                 verticalAlignment = Alignment.CenterVertically
             ){
                 Text(
-                    text = stringResource(R.string.hi),
+                    text = stringResource(R.string.hi) + " $userName !",
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     fontSize = 25.sp
@@ -218,9 +228,6 @@ fun UserDataScreen(navController: NavController?){
                                 focusedBorderColor = Color(0xFF3F51B5),
                                 cursorColor = Color(0xFF03A9F4),
                                 unfocusedBorderColor = Color(0xFF0028FF)
-                            ),
-                            textStyle = TextStyle(
-                                fontSize = 24.sp
                             )
 
                         )
@@ -265,25 +272,31 @@ fun UserDataScreen(navController: NavController?){
                             label = {Text(text = "Height")},
                             leadingIcon = {
                                 Icon(
-                                    imageVector = Icons.Default.Height,
+                                    imageVector        = Icons.Default.Height,
                                     contentDescription = "",
-                                    tint = Color(0xFF3F51B5)
+                                    tint               = Color(0xFF3F51B5)
                                 )
                             },
-                            keyboardOptions = KeyboardOptions(
+                            keyboardOptions  = KeyboardOptions(
                                 keyboardType = KeyboardType.Decimal,
-                                imeAction = ImeAction.Done
+                                imeAction    = ImeAction.Done
                             ),
                             colors = OutlinedTextFieldDefaults.colors(
-                                focusedBorderColor = Color(0xFF3F51B5),
-                                cursorColor = Color(0xFF03A9F4),
+                                focusedBorderColor   = Color(0xFF3F51B5),
+                                cursorColor          = Color(0xFF03A9F4),
                                 unfocusedBorderColor = Color(0xFF0028FF)
                             )
                         )
                     }
                     Button(
                         onClick = {
+                            val editor = sharedUserFile.edit()
+                            editor.putInt("user_age"   , ageState  .value.trim().toInt())
+                            editor.putInt("user_weight",weightState.value.trim().toInt())
+                            editor.putInt("user_height",heightState.value.trim().toInt())
+                            editor.apply()
                             navController?.navigate("BMIResultScreen")
+
                         },
                         modifier = Modifier
                             .padding(horizontal = 16.dp)
