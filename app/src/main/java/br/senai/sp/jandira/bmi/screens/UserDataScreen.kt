@@ -269,7 +269,7 @@ fun UserDataScreen(navController: NavController?){
                                 .fillMaxWidth()
                                 .padding(top = 8.dp),
                             shape = RoundedCornerShape(16.dp),
-                            label = {Text(text = "Height")},
+                            label = {Text(text = stringResource(R.string.height))},
                             leadingIcon = {
                                 Icon(
                                     imageVector        = Icons.Default.Height,
@@ -291,7 +291,7 @@ fun UserDataScreen(navController: NavController?){
                     Button(
                         onClick = {
                             val editor = sharedUserFile.edit()
-                            editor.putInt("user_age"   , ageState  .value.trim().toInt())
+                            editor.putInt("user_age"   ,ageState   .value.trim().toInt())
                             editor.putInt("user_weight",weightState.value.trim().toInt())
                             editor.putInt("user_height",heightState.value.trim().toInt())
                             editor.apply()
