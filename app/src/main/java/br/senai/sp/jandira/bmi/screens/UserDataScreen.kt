@@ -290,6 +290,7 @@ fun UserDataScreen(navController: NavController?){
                     }
                     Button(
                         onClick = {
+                            heightState.value.replace(",", ".")
                             val editor = sharedUserFile.edit()
                             editor.putInt("user_age"   ,ageState   .value.trim().toInt())
                             editor.putInt("user_weight",weightState.value.trim().toInt())

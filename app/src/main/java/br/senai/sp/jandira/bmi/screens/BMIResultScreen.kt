@@ -216,6 +216,7 @@ fun BMIResultScreen(navController: NavController?) {
                     BmiLevel(
                         markColor = colorResource(R.color.light_blue),
                         text1 = stringResource(R.string.value_underweight),
+                        text2 = "${numberFormat(18.0)}",
                         isFilled = isFilled(bmiResult.bmiStatus, BmiStatus.UNDERWEIGHT)
                     )
                     BmiLevel(
